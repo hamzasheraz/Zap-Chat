@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { UserPlus, Settings } from 'lucide-react'
 
-const Options = () => {
+const Options = ({setIsNewContactModalOpen}) => {
     return (
         <div className="p-4 flex justify-between">
             <Button variant="outline" onClick={() => setIsNewContactModalOpen(true)}>
