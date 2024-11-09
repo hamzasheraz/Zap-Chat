@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Checkbox } from "@/components/ui/checkbox"
 
-export default function Home() {
+export function EnhancedSocialMediaAppComponent() {
   const [darkMode, setDarkMode] = useState(false)
   const [selectedContact, setSelectedContact] = useState(null)
   const [isNewContactModalOpen, setIsNewContactModalOpen] = useState(false)
@@ -34,11 +34,11 @@ export default function Home() {
     { id: 3, name: 'Charlie', lastMessage: 'The meeting went well', time: '7:20 PM', avatar: '/placeholder-avatar-3.jpg' },
     { id: 4, name: 'David', lastMessage: 'Can you send the files?', time: '6:55 PM', avatar: '/placeholder-avatar-4.jpg' },
     { id: 5, name: 'Eve', lastMessage: 'Thanks for your help!', time: '5:30 PM', avatar: '/placeholder-avatar-5.jpg' },
-    // { id: 6, name: 'Frank', lastMessage: 'Let\'s catch up soon', time: '4:15 PM', avatar: '/placeholder-avatar-6.jpg' },
-    // { id: 7, name: 'Grace', lastMessage: 'Project update?', time: '3:00 PM', avatar: '/placeholder-avatar-7.jpg' },
-    // { id: 8, name: 'Henry', lastMessage: 'Great idea!', time: '1:45 PM', avatar: '/placeholder-avatar-8.jpg' },
-    // { id: 9, name: 'Ivy', lastMessage: 'See you at the meeting', time: '12:30 PM', avatar: '/placeholder-avatar-9.jpg' },
-    // { id: 10, name: 'Jack', lastMessage: 'Thanks for your help', time: '11:15 AM', avatar: '/placeholder-avatar-10.jpg' },
+    { id: 6, name: 'Frank', lastMessage: 'Let\'s catch up soon', time: '4:15 PM', avatar: '/placeholder-avatar-6.jpg' },
+    { id: 7, name: 'Grace', lastMessage: 'Project update?', time: '3:00 PM', avatar: '/placeholder-avatar-7.jpg' },
+    { id: 8, name: 'Henry', lastMessage: 'Great idea!', time: '1:45 PM', avatar: '/placeholder-avatar-8.jpg' },
+    { id: 9, name: 'Ivy', lastMessage: 'See you at the meeting', time: '12:30 PM', avatar: '/placeholder-avatar-9.jpg' },
+    { id: 10, name: 'Jack', lastMessage: 'Thanks for your help', time: '11:15 AM', avatar: '/placeholder-avatar-10.jpg' },
   ]
 
   const handleAddNewContact = (event) => {
