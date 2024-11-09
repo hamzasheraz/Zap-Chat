@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Checkbox } from "@/components/ui/checkbox"
 import Sidebar from '@/components/sidebar'
+import Chatarea from '@/components/chatarea'
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false)
@@ -68,7 +69,7 @@ export default function Home() {
   }
 
   const toggleTask = (id) => {
-    setTasks(tasks.map(task => 
+    setTasks(tasks.map(task =>
       task.id === id ? { ...task, completed: !task.completed } : task))
   }
 
@@ -77,147 +78,10 @@ export default function Home() {
       <div
         className={`h-screen flex flex-col sm:flex-row ${darkMode ? 'dark' : ''}`}>
         {/* Sidebar */}
-        <Sidebar isSidebarOpen={isSidebarOpen} toggleDarkMode={toggleDarkMode} darkMode={darkMode} contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} setIsNewContactModalOpen={setIsNewContactModalOpen}/>
+        <Sidebar isSidebarOpen={isSidebarOpen} toggleDarkMode={toggleDarkMode} darkMode={darkMode} contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} setIsNewContactModalOpen={setIsNewContactModalOpen} />
 
         {/* Main chat area */}
-        <div className="flex-grow flex flex-col bg-white dark:bg-gray-900">
-          {selectedContact ? (
-            <>
-              {/* Chat header */}
-              <div
-                className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <Button variant="ghost" size="icon" className="sm:hidden" onClick={toggleSidebar}>
-                    <MoreVertical className="h-5 w-5" />
-                  </Button>
-                  <Avatar>
-                    <AvatarImage src={selectedContact.avatar} alt={selectedContact.name} />
-                    <AvatarFallback>{selectedContact.name[0]}</AvatarFallback>
-                  </Avatar>
-                  <span className="font-semibold text-gray-800 dark:text-gray-200">{selectedContact.name}</span>
-                </div>
-                <div className="flex space-x-2">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <Phone className="h-5 w-5" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Start voice call</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <Video className="h-5 w-5" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Start video call</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon" onClick={toggleTaskList}>
-                        <CheckSquare className="h-5 w-5" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Open task list</p>
-                    </TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreVertical className="h-5 w-5" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>More options</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-              </div>
-
-              {/* Chat messages */}
-              <ScrollArea className="flex-grow p-4 space-y-4">
-                <div className="flex justify-end">
-                  <div className="bg-blue-500 text-white rounded-lg py-2 px-4 max-w-xs">
-                    <p>Hey {selectedContact.name}! How are you doing?</p>
-                    <p className="text-xs text-right mt-1 text-blue-100">10:35 PM</p>
-                  </div>
-                </div>
-                <div className="flex justify-start">
-                  <div
-                    className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg py-2 px-4 max-w-xs">
-                    <p>Hi! I'm doing great, thanks for asking. How about you?</p>
-                    <p className="text-xs text-left mt-1 text-gray-500 dark:text-gray-400">10:36 PM</p>
-                  </div>
-                </div>
-                {/* Add more messages here */}
-              </ScrollArea>
-
-              {/* Message input */}
-              <div
-                className="p-4 border-t border-gray-200 dark:border-gray-700 flex items-center space-x-2">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Paperclip className="h-5 w-5" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Attach file</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Input className="flex-grow" placeholder="Type a message..." />
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Smile className="h-5 w-5" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Add emoji</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" onClick={toggleRecording}>
-                      <Mic className={`h-5 w-5 ${isRecording ? 'text-red-500' : ''}`} />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{isRecording ? 'Stop recording' : 'Start voice message'}</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button>
-                      <Send className="h-5 w-5" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Send message</p>
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-            </>
-          ) : (
-            <div
-              className="flex-grow flex items-center justify-center text-gray-500 dark:text-gray-400">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="sm:hidden absolute top-4 left-4"
-                onClick={toggleSidebar}>
-                <MoreVertical className="h-5 w-5" />
-              </Button>
-              Select a contact to start chatting
-            </div>
-          )}
-        </div>
+        <Chatarea selectedContact={selectedContact} toggleSidebar={toggleSidebar} toggleTaskList={toggleTaskList} toggleRecording={toggleRecording} isRecording={isRecording} />
 
         {/* New Contact Modal */}
         <Dialog open={isNewContactModalOpen} onOpenChange={setIsNewContactModalOpen}>
@@ -275,9 +139,8 @@ export default function Home() {
                       onCheckedChange={() => toggleTask(task.id)} />
                     <label
                       htmlFor={`task-${task.id}`}
-                      className={`flex-grow text-sm ${
-                        task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-700 dark:text-gray-300'
-                      }`}>
+                      className={`flex-grow text-sm ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-700 dark:text-gray-300'
+                        }`}>
                       {task.text}
                     </label>
                   </div>
