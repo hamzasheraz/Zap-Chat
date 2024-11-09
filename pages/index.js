@@ -77,7 +77,7 @@ export default function Home() {
       <div
         className={`h-screen flex flex-col sm:flex-row ${darkMode ? 'dark' : ''}`}>
         {/* Sidebar */}
-        <Sidebar isSidebarOpen={isSidebarOpen} toggleDarkMode={toggleDarkMode} darkMode={darkMode} contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen}/>
+        <Sidebar isSidebarOpen={isSidebarOpen} toggleDarkMode={toggleDarkMode} darkMode={darkMode} contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} setIsNewContactModalOpen={setIsNewContactModalOpen}/>
 
         {/* Main chat area */}
         <div className="flex-grow flex flex-col bg-white dark:bg-gray-900">

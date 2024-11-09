@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Moon, Sun, Search, Phone, Video, MoreVertical, Send, Paperclip, Smile, UserPlus, Settings, Mic, X, CheckSquare, PlusCircle } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,8 +8,9 @@ import { Label } from "@/components/ui/label"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Checkbox } from "@/components/ui/checkbox"
 import Searchbar from './searchbar'
+import Options from './options'
 
-const Sidebar = ({isSidebarOpen,toggleDarkMode,darkMode,contacts,setSelectedContact,setIsSidebarOpen}) => {
+const Sidebar = ({isSidebarOpen,toggleDarkMode,darkMode,contacts,setSelectedContact,setIsSidebarOpen,setIsNewContactModalOpen}) => {
   return (
     <div
           className={`w-full sm:w-80 bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col ${isSidebarOpen ? 'block' : 'hidden sm:block'}`}>
@@ -57,15 +57,7 @@ const Sidebar = ({isSidebarOpen,toggleDarkMode,darkMode,contacts,setSelectedCont
           </ScrollArea>
 
           {/* New contact and settings buttons */}
-          <div className="p-4 flex justify-between">
-            <Button variant="outline" onClick={() => setIsNewContactModalOpen(true)}>
-              <UserPlus className="h-5 w-5 mr-2" />
-              New Contact
-            </Button>
-            <Button variant="outline">
-              <Settings className="h-5 w-5" />
-            </Button>
-          </div>
+          <Options setIsNewContactModalOpen={setIsNewContactModalOpen}/>
         </div>
   )
 }
