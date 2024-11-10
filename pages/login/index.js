@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Zap, AlertCircle } from 'lucide-react'
 import Loginform from '@/components/loginform'
+import Loginheader from '@/components/loginform/loginheader'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -34,16 +35,7 @@ const Login = () => {
       (<div
         className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
         <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1">
-            <CardTitle
-              className="text-2xl font-bold text-center flex items-center justify-center">
-              <Zap className="mr-2 h-6 w-6 text-yellow-500" />
-              Zap Chat
-            </CardTitle>
-            <CardDescription className="text-center">
-              Enter your email and password to login
-            </CardDescription>
-          </CardHeader>
+          <Loginheader/>
           <CardContent>
             <Loginform handleLogin={handleLogin} email={email} setEmail={setEmail} password={password} setPassword={setPassword} error={error} />
             <div className="relative my-4">
