@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Zap, AlertCircle } from 'lucide-react'
 import Formheader from '@/components/formheader'
 import Formfooter from '@/components/formfooter'
+import Signupform from '@/components/signupform'
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -52,84 +53,7 @@ const Signup = () => {
             <Card className="w-full max-w-md">
                 <Formheader title={title} description={description} />
                 <CardContent>
-                    <form onSubmit={handleSignUp}>
-                        <div className="space-y-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="email">Email</Label>
-                                <Input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    placeholder="m@example.com"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="password">Password</Label>
-                                <Input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    required />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                                <Input
-                                    id="confirmPassword"
-                                    name="confirmPassword"
-                                    type="password"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
-                                    required />
-                            </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="phoneNumber">Phone Number</Label>
-                                <Input
-                                    id="phoneNumber"
-                                    name="phoneNumber"
-                                    type="tel"
-                                    placeholder="+1 (555) 000-0000"
-                                    value={formData.phoneNumber}
-                                    onChange={handleChange}
-                                    required />
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="firstName">First Name</Label>
-                                    <Input
-                                        id="firstName"
-                                        name="firstName"
-                                        type="text"
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                        required />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="lastName">Last Name</Label>
-                                    <Input
-                                        id="lastName"
-                                        name="lastName"
-                                        type="text"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                        required />
-                                </div>
-                            </div>
-                            {error && (
-                                <Alert variant="destructive">
-                                    <AlertCircle className="h-4 w-4" />
-                                    <AlertTitle>Error</AlertTitle>
-                                    <AlertDescription>{error}</AlertDescription>
-                                </Alert>
-                            )}
-                            <Button type="submit" className="w-full">
-                                Sign Up
-                            </Button>
-                        </div>
-                    </form>
+                    <Signupform />
                 </CardContent>
                 <Formfooter page={'signup'} />
             </Card>
