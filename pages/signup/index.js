@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Zap, AlertCircle } from 'lucide-react'
 import Formheader from '@/components/formheader'
+import Formfooter from '@/components/formfooter'
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -130,14 +131,7 @@ const Signup = () => {
                         </div>
                     </form>
                 </CardContent>
-                <CardFooter>
-                    <p className="text-center text-sm text-gray-600 dark:text-gray-400 w-full">
-                        Already have an account?{' '}
-                        <a href="#" className="font-medium text-primary hover:underline">
-                            Log in
-                        </a>
-                    </p>
-                </CardFooter>
+                <Formfooter page={'signup'} />
             </Card>
         </div>)
     );
