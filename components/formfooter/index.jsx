@@ -11,11 +11,18 @@ const Formfooter = ({ page }) => {
                             Sign up
                         </a>
                     </>
-                ) : (
+                ) : page === 'signup' ? (
                     <>
                         Already have an account?{' '}
                         <a href="#" className="font-medium text-primary hover:underline">
                             Log in
+                        </a>
+                    </>
+                ) : (
+                    <>
+                        Need help?{' '}
+                        <a href="#" className="font-medium text-primary hover:underline">
+                            Contact support
                         </a>
                     </>
                 )}
