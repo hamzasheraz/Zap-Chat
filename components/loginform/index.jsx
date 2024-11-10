@@ -1,8 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from 'lucide-react'
+import Error from "../error"
 
 const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error }) => {
     return (
@@ -27,13 +26,7 @@ const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error 
                         onChange={(e) => setPassword(e.target.value)}
                         required />
                 </div>
-                {error && (
-                    <Alert variant="destructive">
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertTitle>Error</AlertTitle>
-                        <AlertDescription>{error}</AlertDescription>
-                    </Alert>
-                )}
+                <Error error={error} />
                 <Button type="submit" className="w-full">
                     Login
                 </Button>
