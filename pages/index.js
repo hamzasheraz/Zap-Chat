@@ -10,6 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Checkbox } from "@/components/ui/checkbox"
 import Sidebar from '@/components/sidebar'
 import Chatarea from '@/components/chatarea'
+import Newcontact from '@/components/sidebar/newcontact'
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false)
@@ -84,40 +85,7 @@ export default function Home() {
         <Chatarea selectedContact={selectedContact} toggleSidebar={toggleSidebar} toggleTaskList={toggleTaskList} toggleRecording={toggleRecording} isRecording={isRecording} />
 
         {/* New Contact Modal */}
-        <Dialog open={isNewContactModalOpen} onOpenChange={setIsNewContactModalOpen}>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Add New Contact</DialogTitle>
-              <DialogDescription>
-                Enter the details of your new contact here. Click save when you're done.
-              </DialogDescription>
-            </DialogHeader>
-            <form onSubmit={handleAddNewContact} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Enter contact name" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="Enter contact email" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" type="tel" placeholder="Enter contact phone number" required />
-              </div>
-              <div className="flex justify-end space-x-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsNewContactModalOpen(false)}>
-                  Cancel
-                </Button>
-                <Button type="submit">Save Contact</Button>
-              </div>
-            </form>
-          </DialogContent>
-        </Dialog>
-
+        <Newcontact isNewContactModalOpen={isNewContactModalOpen} setIsNewContactModalOpen={setIsNewContactModalOpen} handleAddNewContact={handleAddNewContact} />
         {/* Collaborative Task List */}
         {isTaskListOpen && (
           <div
