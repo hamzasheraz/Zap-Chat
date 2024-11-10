@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import Loginform from '@/components/loginform'
-import Loginheader from '@/components/loginform/loginheader'
 import Loginfooter from '@/components/loginform/loginfooter'
 import Googlelogin from '@/components/loginform/googlelogin'
+import Formheader from '@/components/formheader'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const title = 'Zap Chat';
+    const description = 'Enter your email and password to login';
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -32,7 +34,7 @@ const Login = () => {
         (<div
             className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
             <Card className="w-full max-w-md">
-                <Loginheader />
+                <Formheader title={title} description={description} />
                 <CardContent>
                     <Loginform handleLogin={handleLogin} email={email} setEmail={setEmail} password={password} setPassword={setPassword} error={error} />
                     <Googlelogin handleGoogleSignIn={handleGoogleSignIn} />
