@@ -7,6 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Zap, AlertCircle, ArrowLeft, Upload } from 'lucide-react'
 import Formfooter from '@/components/formfooter'
+import Settingheader from '@/components/settingheader'
 
 const Settings = () => {
     const [firstName, setFirstName] = useState('John')
@@ -55,15 +56,7 @@ const Settings = () => {
         className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
         <Card className="max-w-2xl mx-auto">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <Button variant="ghost" size="icon" className="mr-2">
-                <ArrowLeft className="h-6 w-6" />
-              </Button>
-              <CardTitle className="text-2xl font-bold flex items-center">
-                <Zap className="mr-2 h-6 w-6 text-yellow-500" />
-                Zap Chat Settings
-              </CardTitle>
-            </div>
+            <Settingheader/>
             <CardDescription>Update your profile and account settings</CardDescription>
           </CardHeader>
           <CardContent>
