@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { AlertCircle, Upload } from 'lucide-react'
+import { Upload } from 'lucide-react'
 import Error from "../error"
+import Success from "../success"
 
-const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureChange, firstName, lastName, setFirstName, newPassword, confirmPassword, setCurrentPassword, setConfirmPassword, error, success }) => {
+const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureChange, firstName, lastName, setFirstName, setLastName, newPassword, confirmPassword, setCurrentPassword, setConfirmPassword, currentPassword, setNewPassword, error, success }) => {
     return (
         <form onSubmit={handleSaveChanges} className="space-y-6">
             <div className="flex flex-col items-center space-y-4">
@@ -78,13 +78,7 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                 </div>
             </div>
             <Error error={error} />
-            {success && (
-                <Alert
-                    variant="default"
-                    className="bg-green-50 text-green-800 dark:bg-green-900 dark:text-green-100">
-                    <AlertDescription>{success}</AlertDescription>
-                </Alert>
-            )}
+            <Success success={success} />
             <Button type="submit" className="w-full">
                 Save Changes
             </Button>
