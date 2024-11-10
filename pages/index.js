@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import Sidebar from '@/components/sidebar'
 import Chatarea from '@/components/chatarea'
 import Newcontact from '@/components/sidebar/newcontact'
+import Tasklist from '@/components/chatarea/chatheader/tasklist'
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false)
@@ -87,46 +88,7 @@ export default function Home() {
         {/* New Contact Modal */}
         <Newcontact isNewContactModalOpen={isNewContactModalOpen} setIsNewContactModalOpen={setIsNewContactModalOpen} handleAddNewContact={handleAddNewContact} />
         {/* Collaborative Task List */}
-        {isTaskListOpen && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div
-              className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg w-full max-w-md">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">Collaborative Task List</h2>
-                <Button variant="ghost" size="icon" onClick={toggleTaskList}>
-                  <X className="h-5 w-5" />
-                </Button>
-              </div>
-              <div className="space-y-2">
-                {tasks.map((task) => (
-                  <div key={task.id} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`task-${task.id}`}
-                      checked={task.completed}
-                      onCheckedChange={() => toggleTask(task.id)} />
-                    <label
-                      htmlFor={`task-${task.id}`}
-                      className={`flex-grow text-sm ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-700 dark:text-gray-300'
-                        }`}>
-                      {task.text}
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-4 flex space-x-2">
-                <Input
-                  placeholder="Add a new task"
-                  value={newTask}
-                  onChange={(e) => setNewTask(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && addTask()} />
-                <Button onClick={addTask}>
-                  <PlusCircle className="h-5 w-5" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
+        <Tasklist tasks={tasks} isTaskListOpen={isTaskListOpen} toggleTaskList={toggleTaskList} toggleTask={toggleTask} newTask={newTask} setNewTask={setNewTask} addTask={addTask} />
       </div>
     </TooltipProvider>)
   );
