@@ -53,7 +53,7 @@ const Signup = () => {
             <Card className="w-full max-w-md">
                 <Formheader title={title} description={description} />
                 <CardContent>
-                    <Signupform />
+                    <Signupform handleSignUp={handleSignUp} formData={formData} handleChange={handleChange} error={error} />
                 </CardContent>
                 <Formfooter page={'signup'} />
             </Card>
