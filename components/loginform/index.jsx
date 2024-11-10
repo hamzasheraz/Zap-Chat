@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from 'lucide-react'
 
-const Loginform = ({ handleLogin, email, password, error }) => {
+const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error }) => {
     return (
         <form onSubmit={handleLogin}>
             <div className="space-y-4">
