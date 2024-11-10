@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import Loginform from '@/components/loginform'
-import Loginfooter from '@/components/loginform/loginfooter'
 import Googlelogin from '@/components/loginform/googlelogin'
 import Formheader from '@/components/formheader'
+import Formfooter from '@/components/formfooter'
 
 const Login = () => {
     const [email, setEmail] = useState('')
@@ -39,7 +39,7 @@ const Login = () => {
                     <Loginform handleLogin={handleLogin} email={email} setEmail={setEmail} password={password} setPassword={setPassword} error={error} />
                     <Googlelogin handleGoogleSignIn={handleGoogleSignIn} />
                 </CardContent>
-                <Loginfooter />
+                <Formfooter page={'login'} />
             </Card>
         </div>)
     );
