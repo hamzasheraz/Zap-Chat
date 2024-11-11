@@ -4,8 +4,10 @@ import Loginform from '@/components/loginform'
 import Googlelogin from '@/components/loginform/googlelogin'
 import Formheader from '@/components/formheader'
 import Formfooter from '@/components/formfooter'
+import { useRouter } from 'next/router'
 
 const Login = () => {
+    const router=useRouter();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -14,9 +16,7 @@ const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        // Here you would typically handle the login logic
-        console.log('Login attempted with:', email, password)
-        // For demonstration, we'll just show an error if fields are empty
+
         if (!email || !password) {
             setError('Please fill in all fields')
             return;
@@ -32,6 +32,7 @@ const Login = () => {
                 .then(async response => {
                     const data = await response.json();
                     if (response.ok) {
+                        router.push('/');
                         setError('');
                     } else {
                         setError(data.error);
@@ -41,7 +42,6 @@ const Login = () => {
                     setError("An unexpected error occurred");
                     console.error("Fetch error:", error);
                 });
-            // Proceed with login...
         }
     }
 
