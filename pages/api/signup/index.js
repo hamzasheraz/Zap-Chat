@@ -1,25 +1,24 @@
 import { connect } from "@/backend/dbConfig/dbConfig";
-import User from "@/backend/models/User";
+import User from "@/backend/models/usermodel";
 import bcryptjs from "bcryptjs";
 
 connect();
 
-export async function Signup(req, res) {
+export default async function Signup(req, res) {
     if (req.method === "POST") {
-        const { firstname, lastname, email, phone, password } = req.body;
-        if (!firstname || !lastname || !email || !phone || !password) {
+        const { firstName, lastName, email, phoneNumber, password } = req.body;
+        if (!firstName || !lastName || !email || !phoneNumber || !password) {
             return res.status(422).json({ error: "Please fill all the fields" });
         }
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt);
-
         try {
             const user = new User({
-                firstname,
-                lastname,
+                firstName,
+                lastName,
                 email,
-                phone,
-                hashedPassword,
+                phoneNumber,
+                password:hashedPassword,
             });
             await user.save();
             res.status(201).json({ message: "Your Account has been created Successfully" });

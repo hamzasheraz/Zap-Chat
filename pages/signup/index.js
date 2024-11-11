@@ -37,10 +37,29 @@ const Signup = () => {
             setError('Passwords do not match')
             return
         }
-        // Here you would typically handle the sign-up logic
-        console.log('Sign-up attempted with:', formData)
-        setError('')
-        // Proceed with sign-up...
+
+        fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+            .then(async response => {
+                const data = await response.json();
+                if (response.ok) {
+                    setError('');
+                    setSuccess(data.message);
+                } else {
+                    setSuccess('');
+                    setError(data.error);
+                }
+            })
+            .catch(error => {
+                setSuccess('');
+                setError("An unexpected error occurred");
+                console.error("Fetch error:", error);
+            });
     }
 
     return (
@@ -49,7 +68,7 @@ const Signup = () => {
             <Card className="w-full max-w-md">
                 <Formheader title={title} description={description} />
                 <CardContent>
-                    <Signupform handleSignUp={handleSignUp} formData={formData} handleChange={handleChange} error={error} />
+                    <Signupform handleSignUp={handleSignUp} formData={formData} handleChange={handleChange} error={error} success={success} />
                 </CardContent>
                 <Formfooter page={'signup'} />
             </Card>

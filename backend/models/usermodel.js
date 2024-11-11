@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 // import { unique } from "next/dist/build/utils";
 
 const userSchema = new mongoose.Schema({
-    firstname: {
+    firstName: {
         type: String,
         required: [true, "Please Provide First Name"],
     },
 
-    lastname: {
+    lastName: {
         type: String,
         required: [true, "Please Provide Last Name"],
     },
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
     },
 
-    phone:{
+    phoneNumber:{
         type: String,
         required: [true, "Please Provide a Phone Number"],
         unique: true,
@@ -28,10 +28,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please Provide a Password"],
     },
-    isVerified: {
-        type: Boolean,
-        default: false,
-    },
+    // isVerified: {
+    //     type: Boolean,
+    //     default: false,
+    // },
     // forgotPasswordToken: String,
     // forgotPasswordTokenExpiry: Date,
     // verifyToken: String,
