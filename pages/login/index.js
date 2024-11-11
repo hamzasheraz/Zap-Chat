@@ -7,7 +7,7 @@ import Formfooter from '@/components/formfooter'
 import { useRouter } from 'next/router'
 
 const Login = () => {
-    const router=useRouter();
+    const router = useRouter();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')

@@ -1,3 +1,4 @@
+import cookie from 'cookie';
 import { connect } from "@/backend/dbConfig/dbConfig";
 import User from "@/backend/models/usermodel";
 import bycrptjs from "bcryptjs";
@@ -28,17 +29,19 @@ export default async function Login(req, res) {
                 email: user.email
             }
 
-            const token = jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: '1h' });
 
-            res.cookie("token", token, {
-                httpOnly: true,
-                sameSite: 'strict',
-                maxAge: 60 * 60 * 1000,
-            });
+            res.setHeader('Set-Cookie', cookie.serialize('token', token, {
+                httpOnly: true, // Makes the cookie inaccessible to JavaScript (for security)
+                sameSite: 'strict', // Helps prevent CSRF attacks
+                maxAge: 60 * 60, // 1 hour expiry in seconds
+                path: '/', // The cookie is available on all routes
+            }));
 
             return res.status(200).json({ message: "Login Successful", token });
         }
         catch (error) {
+            console.log(error);
             return res.status(500).json({ error });
         }
     }
