@@ -28,7 +28,7 @@ const Signup = () => {
 
     const handleSignUp = (e) => {
         e.preventDefault()
-        // Basic validation
+
         if (Object.values(formData).some(field => field === '')) {
             setError('Please fill in all fields')
             return
