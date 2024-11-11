@@ -44,6 +44,7 @@ const Signup = () => {
             email: '',
             phoneNumber: '',
             password: '',
+            confirmPassword: '',
         };
 
         fetch('/api/signup', {

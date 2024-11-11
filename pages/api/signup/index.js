@@ -1,6 +1,7 @@
 import { connect } from "@/backend/dbConfig/dbConfig";
 import User from "@/backend/models/usermodel";
 import bcryptjs from "bcryptjs";
+import { sendEmail } from "@/helpers/mailer";
 
 connect();
 
@@ -20,8 +21,9 @@ export default async function Signup(req, res) {
                 phoneNumber,
                 password:hashedPassword,
             });
-            await user.save();
-            res.status(201).json({ message: "Your Account has been created Successfully" });
+            const savedUser=await user.save();
+            await sendEmail({email, emailType: "VERIFY", userId: savedUser._id});
+            res.status(201).json({ message: "Your Account has been created Successfully.Check your email to verify your email." });
         } catch (error) {
             console.log(error);
             if (error.code === 11000) {
