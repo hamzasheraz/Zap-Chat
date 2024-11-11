@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { unique } from "next/dist/build/utils";
 
 const userSchema = new mongoose.Schema({
     firstname: {
@@ -20,6 +21,7 @@ const userSchema = new mongoose.Schema({
     phone:{
         type: String,
         required: [true, "Please Provide a Phone Number"],
+        unique: true,
     },
 
     password: {
