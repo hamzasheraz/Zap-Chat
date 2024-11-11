@@ -3,6 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/
 import Formfooter from '@/components/formfooter'
 import Settingheader from '@/components/settingheader'
 import Settingform from '@/components/settingform'
+import { useRouter } from 'next/router'
+import Logout from '@/components/logout'
+// import { useAuth } from '@/context/auth-context' // Assuming i  have an auth context
+// const { logout } = useAuth()
 
 const Settings = () => {
     const [firstName, setFirstName] = useState('John')
@@ -13,6 +17,7 @@ const Settings = () => {
     const [profilePicture, setProfilePicture] = useState('/placeholder-avatar.jpg')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
+    const router = useRouter()
 
     const handleSaveChanges = (e) => {
         e.preventDefault()
@@ -46,6 +51,16 @@ const Settings = () => {
         }
     }
 
+    const handleLogout = async () => {
+        try {
+            await logout() // This would clear tokens, notify the backend, etc.
+            router.push('/login') // Redirect to login page
+        } catch (error) {
+            console.error('Logout failed', error)
+            // Handle error (e.g., show an error message to the user)
+        }
+    }
+
     return (
         (<div
             className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
@@ -56,6 +71,7 @@ const Settings = () => {
                 </CardHeader>
                 <CardContent>
                     <Settingform handleSaveChanges={handleSaveChanges} profilePicture={profilePicture} handleProfilePictureChange={handleProfilePictureChange} firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} newPassword={newPassword} confirmPassword={confirmPassword} setCurrentPassword={setCurrentPassword} setConfirmPassword={setConfirmPassword} currentPassword={currentPassword} setNewPassword={setNewPassword} error={error} success={success} />
+                    <Logout handleLogout={handleLogout} />
                 </CardContent>
                 <Formfooter page={'settings'} />
             </Card>
