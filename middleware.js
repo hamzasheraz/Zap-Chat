@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { cookies } from 'next/headers'; 
+import { cookies } from 'next/headers';
 
-export function middleware(request) {
-const path = new URL(request.url).pathname;
+export async function middleware(request) {
+  const path = new URL(request.url).pathname;
 
   const isPublicPath = path === "/login" || path === "/signup";
 
-  const token = cookies().get("token") || ""; 
+  const token = (await cookies()).get("token") || "";
 
   if (isPublicPath && token) {
     return NextResponse.redirect(new URL("/", request.url));
@@ -20,5 +20,5 @@ const path = new URL(request.url).pathname;
 }
 
 export const config = {
-  matcher: ["/","/settings", "/login", "/signup"],
+  matcher: ["/", "/settings", "/login", "/signup"],
 };
