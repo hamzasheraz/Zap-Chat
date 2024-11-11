@@ -19,8 +19,28 @@ const Login = () => {
         // For demonstration, we'll just show an error if fields are empty
         if (!email || !password) {
             setError('Please fill in all fields')
+            return;
         } else {
-            setError('')
+
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+                .then(async response => {
+                    const data = await response.json();
+                    if (response.ok) {
+                        setError('');
+                    } else {
+                        setError(data.error);
+                    }
+                }
+                ).catch((error) => {
+                    setError("An unexpected error occurred");
+                    console.error("Fetch error:", error);
+                });
             // Proceed with login...
         }
     }

@@ -21,6 +21,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "jose": "^5.9.6",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.456.0",
     "mongoose": "^8.8.1",
     "next": "15.0.3",
