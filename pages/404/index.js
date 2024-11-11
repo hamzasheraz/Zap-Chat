@@ -1,9 +1,8 @@
 import Backbutton from "@/components/backbutton"
 import Formfooter from "@/components/formfooter"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Zap, ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import Notfounddescription from "@/components/notfounddescription"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Zap } from 'lucide-react'
 
 const NotFound = () => {
     return (
@@ -18,16 +17,10 @@ const NotFound = () => {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="text-center">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">404</h2>
-                    <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">Oops! Page not found</p>
-                    <div className="mb-6">
-                        <p className="text-gray-600 dark:text-gray-400">
-                            The page you&apos;re looking for doesn&apos;t exist or has been moved.
-                        </p>
-                    </div>
-                   <Backbutton/>
+                    <Notfounddescription />
+                    <Backbutton />
                 </CardContent>
-               <Formfooter page={'404'} />
+                <Formfooter page={'404'} />
             </Card>
         </div>
     )
