@@ -38,6 +38,14 @@ const Signup = () => {
             return
         }
 
+        const initialFormData = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+            password: '',
+        };
+
         fetch('/api/signup', {
             method: 'POST',
             headers: {
@@ -50,6 +58,7 @@ const Signup = () => {
                 if (response.ok) {
                     setError('');
                     setSuccess(data.message);
+                    setFormData(initialFormData);
                 } else {
                     setSuccess('');
                     setError(data.error);
