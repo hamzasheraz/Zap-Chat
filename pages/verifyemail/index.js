@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Formheader from "@/components/formheader"
 import Notify from "@/components/notify"
 
-export default function VerifyEmailPage() {
+export default function Verifyemail() {
     const [token, setToken] = useState("")
     const [verified, setVerified] = useState(false)
     const [error, setError] = useState(false)
