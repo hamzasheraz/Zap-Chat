@@ -1,4 +1,3 @@
-import cookie from 'cookie';
 import { connect } from "@/backend/dbConfig/dbConfig";
 import User from "@/backend/models/usermodel";
 import bycrptjs from "bcryptjs";
@@ -8,6 +7,7 @@ connect();
 
 export default async function Login(req, res) {
     if (req.method === 'POST') {
+        const cookie = require('cookie');
         const { email, password } = req.body;
         if (!email || !password) {
             return res.status(422).json({ error: "Please fill all the fields" });
@@ -32,8 +32,8 @@ export default async function Login(req, res) {
             const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: '1h' });
 
             res.setHeader('Set-Cookie', cookie.serialize('token', token, {
-                httpOnly: true, // Makes the cookie inaccessible to JavaScript (for security)
-                sameSite: 'strict', // Helps prevent CSRF attacks
+                httpOnly: true,
+                sameSite: 'strict',
                 maxAge: 60 * 60, // 1 hour expiry in seconds
                 path: '/', // The cookie is available on all routes
             }));
