@@ -26,6 +26,8 @@ export default async function Login(req, res) {
 
             const tokenData = {
                 id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 email: user.email
             }
 
