@@ -12,8 +12,9 @@ const Signup = () => {
         phoneNumber: '',
         firstName: '',
         lastName: '',
-    })
-    const [error, setError] = useState('')
+    });
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const title = 'Sign Up for Zap Chat';
     const description = 'Create an account to start chatting';
 

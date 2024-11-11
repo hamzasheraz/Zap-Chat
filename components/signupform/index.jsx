@@ -2,8 +2,9 @@ import Error from "../error";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Success from "../success";
 
-const Signupform = ({ handleSignUp, formData, handleChange, error }) => {
+const Signupform = ({ handleSignUp, formData, handleChange, error, success }) => {
     return (
         <form onSubmit={handleSignUp}>
             <div className="space-y-4">
@@ -72,6 +73,7 @@ const Signupform = ({ handleSignUp, formData, handleChange, error }) => {
                     </div>
                 </div>
                 <Error error={error} />
+                <Success success={success} />
                 <Button type="submit" className="w-full">
                     Sign Up
                 </Button>
