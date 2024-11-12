@@ -5,7 +5,7 @@ import { Upload } from 'lucide-react'
 import Success from "../success"
 import Submitbutton from "../submitbutton"
 
-const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureChange, firstName, lastName, setFirstName, setLastName, newPassword, confirmPassword, setCurrentPassword, setConfirmPassword, currentPassword, setNewPassword, error, success }) => {
+const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureChange, firstName, lastName, setFirstName, setLastName, newPassword, confirmPassword, setCurrentPassword, setConfirmPassword, currentPassword, setNewPassword, error, success,loading }) => {
     return (
         <form onSubmit={handleSaveChanges} className="space-y-6">
             <div className="flex flex-col items-center space-y-4">
@@ -82,7 +82,7 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                 </div>
             </div>
             <Success success={success} />
-            <Submitbutton error={error} loading={false} message="Save Changes" />
+            <Submitbutton error={error} loading={loading} message="Save Changes" />
         </form>
     )
 }

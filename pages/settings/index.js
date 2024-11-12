@@ -5,6 +5,7 @@ import Settingheader from '@/components/settingheader'
 import Settingform from '@/components/settingform'
 import { useRouter } from 'next/router'
 import Logout from '@/components/logout'
+import { set } from 'mongoose'
 // import { useAuth } from '@/context/auth-context' // Assuming i  have an auth context
 // const { logout } = useAuth()
 
@@ -15,8 +16,10 @@ const Settings = () => {
     const [newPassword, setNewPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [profilePicture, setProfilePicture] = useState('/placeholder-avatar.jpg')
-    const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [loading2, setLoading2] = useState(false);
     const router = useRouter()
 
     const handleSaveChanges = (e) => {
@@ -52,14 +55,20 @@ const Settings = () => {
     }
 
     const handleLogout = async () => {
+        setLoading(true);
         try {
-            await logout() // This would clear tokens, notify the backend, etc.
-            router.push('/login') // Redirect to login page
+            const response = await fetch('/api/logout');
+            if (response.ok) {
+                router.push('/login');  // Only redirect if logout was successful
+            } else {
+                console.error("Logout failed.");
+            }
         } catch (error) {
-            console.error('Logout failed', error)
-            // Handle error (e.g., show an error message to the user)
+            console.error("Error during logout:", error);
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     return (
         (<div
@@ -70,8 +79,8 @@ const Settings = () => {
                     <CardDescription>Update your profile and account settings</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Settingform handleSaveChanges={handleSaveChanges} profilePicture={profilePicture} handleProfilePictureChange={handleProfilePictureChange} firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} newPassword={newPassword} confirmPassword={confirmPassword} setCurrentPassword={setCurrentPassword} setConfirmPassword={setConfirmPassword} currentPassword={currentPassword} setNewPassword={setNewPassword} error={error} success={success} />
-                    <Logout handleLogout={handleLogout} />
+                    <Settingform handleSaveChanges={handleSaveChanges} profilePicture={profilePicture} handleProfilePictureChange={handleProfilePictureChange} firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} newPassword={newPassword} confirmPassword={confirmPassword} setCurrentPassword={setCurrentPassword} setConfirmPassword={setConfirmPassword} currentPassword={currentPassword} setNewPassword={setNewPassword} error={error} success={success} loading={loading2} />
+                    <Logout handleLogout={handleLogout} loading={loading} />
                 </CardContent>
                 <Formfooter page={'settings'} />
             </Card>
