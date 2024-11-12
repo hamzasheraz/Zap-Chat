@@ -1,4 +1,5 @@
 import { CardFooter } from "@/components/ui/card"
+import Link from "next/link";
 
 const Formfooter = ({ page }) => {
     return (
@@ -7,23 +8,23 @@ const Formfooter = ({ page }) => {
                 {page === 'login' ? (
                     <>
                         Don&apos;t have an account?{' '}
-                        <a href="#" className="font-medium text-primary hover:underline">
+                        <Link href='/signup' className="font-medium text-primary hover:underline">
                             Sign up
-                        </a>
+                        </Link>
                     </>
                 ) : page === 'signup' ? (
                     <>
                         Already have an account?{' '}
-                        <a href="#" className="font-medium text-primary hover:underline">
+                        <Link href='/login' className="font-medium text-primary hover:underline">
                             Log in
-                        </a>
+                        </Link>
                     </>
                 ) : (
                     <>
                         Need help?{' '}
-                        <a href="#" className="font-medium text-primary hover:underline">
+                        <Link href="#" className="font-medium text-primary hover:underline">
                             Contact support
-                        </a>
+                        </Link>
                     </>
                 )}
             </p>
