@@ -5,9 +5,6 @@ import Settingheader from '@/components/settingheader'
 import Settingform from '@/components/settingform'
 import { useRouter } from 'next/router'
 import Logout from '@/components/logout'
-import { set } from 'mongoose'
-// import { useAuth } from '@/context/auth-context' // Assuming i  have an auth context
-// const { logout } = useAuth()
 
 const Settings = () => {
     const [firstName, setFirstName] = useState('John')
@@ -59,7 +56,7 @@ const Settings = () => {
         try {
             const response = await fetch('/api/logout');
             if (response.ok) {
-                router.push('/login');  // Only redirect if logout was successful
+                router.push('/login');  
             } else {
                 console.error("Logout failed.");
             }
