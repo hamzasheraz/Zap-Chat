@@ -9,20 +9,22 @@ export async function middleware(request) {
   const token = (await cookies()).get("token") || "";
 
   if (token) {
+
     try {
+
       if (token.value.split('.').length === 3) {
         await jwtVerify(token.value, new TextEncoder().encode(process.env.TOKEN_SECRET));
-      } else {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+      else {
         throw new Error("Token is malformed");
       }
-    } catch (err) {
+    }
+    catch (err) {
       const cookieStore = cookies();
       await cookieStore.set("token", "", { expires: new Date(0) });
       return NextResponse.redirect(new URL("/login", request.url));
     }
-  }
-  if (isPublicPath && token) {
-    return NextResponse.redirect(new URL("/", request.url));
   }
 
   if (!isPublicPath && !token) {
