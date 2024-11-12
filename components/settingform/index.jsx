@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Upload } from 'lucide-react'
-import Error from "../error"
 import Success from "../success"
+import Submitbutton from "../submitbutton"
 
 const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureChange, firstName, lastName, setFirstName, setLastName, newPassword, confirmPassword, setCurrentPassword, setConfirmPassword, currentPassword, setNewPassword, error, success }) => {
     return (
@@ -82,11 +81,8 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                         onChange={(e) => setConfirmPassword(e.target.value)} />
                 </div>
             </div>
-            <Error error={error} />
             <Success success={success} />
-            <Button type="submit" className="w-full">
-                Save Changes
-            </Button>
+            <Submitbutton error={error} loading={false} message="Save Changes" />
         </form>
     )
 }

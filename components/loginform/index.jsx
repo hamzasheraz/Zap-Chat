@@ -1,8 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import { Loader2 } from 'lucide-react'
-import Error from "../error"
+import Submitbutton from "../submitbutton"
 
 const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error, loading }) => {
     return (
@@ -29,17 +27,7 @@ const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error,
                         onChange={(e) => setPassword(e.target.value)}
                         required />
                 </div>
-                <Error error={error} />
-                <Button type="submit" className="w-full">
-                    {loading ? (
-                        <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Logging in...
-                        </>
-                    ) : (
-                        'Login'
-                    )}
-                </Button>
+               <Submitbutton error={error} message="Login" loading={loading} />
             </div>
         </form>
     )

@@ -1,9 +1,7 @@
-import Error from "../error";
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Loader2 } from 'lucide-react'
 import Success from "../success";
+import Submitbutton from "../submitbutton";
 
 const Signupform = ({ handleSignUp, formData, handleChange, error, success, loading }) => {
     return (
@@ -73,18 +71,8 @@ const Signupform = ({ handleSignUp, formData, handleChange, error, success, load
                             required />
                     </div>
                 </div>
-                <Error error={error} />
                 <Success success={success} />
-                <Button type="submit" className="w-full">
-                    {loading ? (
-                        <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Signing up...
-                        </>
-                    ) : (
-                        'Sign Up'
-                    )}
-                </Button>
+                <Submitbutton error={error} loading={loading} message="Sign Up" />
             </div>
         </form>
     )
