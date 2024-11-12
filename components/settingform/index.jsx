@@ -40,6 +40,7 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                         id="firstName"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
+                        autoComplete="first-name"
                         required />
                 </div>
                 <div className="space-y-2">
@@ -48,6 +49,7 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                         id="lastName"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
+                        autoComplete="last-name"
                         required />
                 </div>
             </div>
@@ -57,6 +59,7 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                     id="currentPassword"
                     type="password"
                     value={currentPassword}
+                    autoComplete="current-password"
                     onChange={(e) => setCurrentPassword(e.target.value)} />
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -66,6 +69,7 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                         id="newPassword"
                         type="password"
                         value={newPassword}
+                        autoComplete="new-password"
                         onChange={(e) => setNewPassword(e.target.value)} />
                 </div>
                 <div className="space-y-2">
@@ -74,6 +78,7 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                         id="confirmPassword"
                         type="password"
                         value={confirmPassword}
+                        autoComplete="new-password"
                         onChange={(e) => setConfirmPassword(e.target.value)} />
                 </div>
             </div>
