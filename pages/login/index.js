@@ -8,17 +8,20 @@ import { useRouter } from 'next/router'
 
 const Login = () => {
     const router = useRouter();
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const title = 'Zap Chat';
     const description = 'Enter your email and password to login';
 
     const handleLogin = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setLoading(true);
 
         if (!email || !password) {
             setError('Please fill in all fields')
+            setLoading(false);
             return;
         } else {
 
@@ -41,6 +44,8 @@ const Login = () => {
                 ).catch((error) => {
                     setError("An unexpected error occurred");
                     console.error("Fetch error:", error);
+                }).finally(() => {
+                    setLoading(false);
                 });
         }
     }
@@ -56,7 +61,7 @@ const Login = () => {
             <Card className="w-full max-w-md">
                 <Formheader title={title} description={description} />
                 <CardContent>
-                    <Loginform handleLogin={handleLogin} email={email} setEmail={setEmail} password={password} setPassword={setPassword} error={error} />
+                    <Loginform handleLogin={handleLogin} email={email} setEmail={setEmail} password={password} setPassword={setPassword} error={error} loading={loading} />
                     <Googlelogin handleGoogleSignIn={handleGoogleSignIn} />
                 </CardContent>
                 <Formfooter page={'login'} />

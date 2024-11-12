@@ -6,25 +6,26 @@ export async function middleware(request) {
   const path = new URL(request.url).pathname;
 
   const isPublicPath = path === "/login" || path === "/signup";
-  const token = (await cookies()).get("token") || "";
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token") || "";
 
   if (token) {
-
     try {
-
       if (token.value.split('.').length === 3) {
         await jwtVerify(token.value, new TextEncoder().encode(process.env.TOKEN_SECRET));
-        return NextResponse.redirect(new URL("/", request.url));
       }
       else {
         throw new Error("Token is malformed");
       }
     }
     catch (err) {
-      const cookieStore = cookies();
-      await cookieStore.set("token", "", { expires: new Date(0) });
+      cookieStore.set("token", "", { expires: new Date(0) });
       return NextResponse.redirect(new URL("/login", request.url));
     }
+  }
+
+  if (isPublicPath && token) {
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
   if (!isPublicPath && !token) {
