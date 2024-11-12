@@ -24,6 +24,7 @@ const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error,
                         id="password"
                         type="password"
                         value={password}
+                        autocomplete="current-password"
                         onChange={(e) => setPassword(e.target.value)}
                         required />
                 </div>
