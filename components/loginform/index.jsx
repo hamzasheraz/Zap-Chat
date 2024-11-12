@@ -15,6 +15,7 @@ const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error,
                         type="email"
                         placeholder="m@example.com"
                         value={email}
+                        autoComplete="email"
                         onChange={(e) => setEmail(e.target.value)}
                         required />
                 </div>
@@ -24,7 +25,7 @@ const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error,
                         id="password"
                         type="password"
                         value={password}
-                        autocomplete="current-password"
+                        autoComplete="current-password"
                         onChange={(e) => setPassword(e.target.value)}
                         required />
                 </div>
