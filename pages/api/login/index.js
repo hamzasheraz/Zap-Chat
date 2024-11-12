@@ -18,6 +18,10 @@ export default async function Login(req, res) {
                 return res.status(400).json({ error: "User does not exist" });
             }
 
+            if(user.isVerified === false) {
+                return res.status(400).json({ error: "Please verify your email" });
+            }
+
             const isMatch = await bycrptjs.compare(password, user.password);
 
             if (!isMatch) {
