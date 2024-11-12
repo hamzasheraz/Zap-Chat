@@ -15,6 +15,7 @@ const Signup = () => {
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
     const title = 'Sign Up for Zap Chat';
     const description = 'Create an account to start chatting';
 
@@ -28,13 +29,16 @@ const Signup = () => {
 
     const handleSignUp = (e) => {
         e.preventDefault()
+        setLoading(true);
 
         if (Object.values(formData).some(field => field === '')) {
             setError('Please fill in all fields')
+            setLoading(false);
             return
         }
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match')
+            setLoading(false);
             return
         }
 
@@ -69,7 +73,7 @@ const Signup = () => {
                 setSuccess('');
                 setError("An unexpected error occurred");
                 console.error("Fetch error:", error);
-            });
+            }).finally(() => setLoading(false));
     }
 
     return (
@@ -78,7 +82,7 @@ const Signup = () => {
             <Card className="w-full max-w-md">
                 <Formheader title={title} description={description} />
                 <CardContent>
-                    <Signupform handleSignUp={handleSignUp} formData={formData} handleChange={handleChange} error={error} success={success} />
+                    <Signupform handleSignUp={handleSignUp} formData={formData} handleChange={handleChange} error={error} success={success} loading={loading} />
                 </CardContent>
                 <Formfooter page={'signup'} />
             </Card>
