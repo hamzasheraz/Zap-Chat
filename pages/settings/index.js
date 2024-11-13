@@ -23,6 +23,7 @@ const Settings = () => {
         e.preventDefault()
         setError('')
         setSuccess('')
+        setLoading2(true);
 
         // Validate inputs
         if (!firstName || !lastName) {
@@ -34,7 +35,7 @@ const Settings = () => {
             setError('New passwords do not match.')
             return
         }
-
+        setLoading2(false);
         // Here you would typically handle the actual update logic
         console.log('Saving changes:', { firstName, lastName, newPassword, profilePicture })
         setSuccess('Changes saved successfully!')
