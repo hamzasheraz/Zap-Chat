@@ -7,7 +7,6 @@ import Emailform from '@/components/emailform'
 
 
 const Forgetpassword = () => {
-    const router = useRouter()
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
@@ -26,7 +25,7 @@ const Forgetpassword = () => {
         }
 
         try {
-            const response = await fetch('/api/forgot-password', {
+            const response = await fetch('/api/forgotpassword', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,8 +36,6 @@ const Forgetpassword = () => {
             const data = await response.json()
             if (response.ok) {
                 setSuccess('Password reset link sent to your email')
-                // Optionally, redirect to a confirmation page
-                // router.push('/password-reset-sent')
             } else {
                 setError(data.error || 'An error occurred. Please try again.')
             }
