@@ -10,7 +10,7 @@ const Submitbutton = ({ error, message, loading }) => {
                 {loading ? (
                     <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        {message === "Sign Up" ? "Signing up..." : message === "Login" ? "Logging in..." : message === 'Send Reset Link' ? 'Sending Reset Link...' : "Saving changes..."}
+                        {message === "Sign Up" ? "Signing up..." : message === "Login" ? "Logging in..." : message === 'Send Reset Link' ? 'Sending Reset Link...' : message === 'Change Password' ? 'Changing Password...' : "Saving changes..."}
                     </>
                 ) : (
                     message

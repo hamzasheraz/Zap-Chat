@@ -4,9 +4,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Zap } from 'lucide-react'
 import Link from 'next/link'
 import Emailform from '@/components/emailform'
+import Backbutton from '@/components/backbutton'
 
 
-const Forgetpassword = () => {
+const Forgotpassword = () => {
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
@@ -48,7 +49,7 @@ const Forgetpassword = () => {
     }
 
     return (
-        (<div
+        <div
             className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
             <Card className="w-full max-w-md">
                 <CardContent className="pt-6">
@@ -59,15 +60,13 @@ const Forgetpassword = () => {
                     </div>
                     <Emailform handleSubmit={handleSubmit} email={email} setEmail={setEmail} error={error} success={success} isLoading={isLoading} />
                     <div className="mt-6 text-center">
-                        <Link href="/login" className="text-sm text-primary hover:underline">
-                            Back to Login
-                        </Link>
+                       <Backbutton/>
                     </div>
                 </CardContent>
             </Card>
-        </div>)
+        </div>
     );
 }
 
 
-export default Forgetpassword;
+export default Forgotpassword;
