@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Submitbutton from "../submitbutton"
 
-const Passwordform = ({ handleSubmit, user, isLoading, error,setUser }) => {
+const Passwordform = ({ handleSubmit, user, isLoading, error, setUser }) => {
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">

@@ -11,6 +11,11 @@ const Formfooter = ({ page }) => {
                         <Link href='/signup' className="font-medium text-primary hover:underline">
                             Sign up
                         </Link>
+                        <p>
+                            <Link href='/forgotpassword' className="font-medium text-primary hover:underline">
+                                Forgot password?
+                            </Link>
+                        </p>
                     </>
                 ) : page === 'signup' ? (
                     <>
