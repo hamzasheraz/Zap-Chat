@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button"
 import { UserPlus, Settings } from 'lucide-react'
-import Link from 'next/link'
 import { useRouter } from "next/router"
 
 const Options = ({ setIsNewContactModalOpen }) => {
