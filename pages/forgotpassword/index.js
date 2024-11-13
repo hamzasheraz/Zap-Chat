@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import { Card, CardContent } from "@/components/ui/card"
 import { Zap } from 'lucide-react'
-import Link from 'next/link'
 import Emailform from '@/components/emailform'
 import Backbutton from '@/components/backbutton'
 

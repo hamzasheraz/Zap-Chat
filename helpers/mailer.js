@@ -55,7 +55,7 @@ export const sendEmail = async ({ email, emailType, userId }) => {
                     ? "Thank you for signing up with Zap Chat! Please verify your email to get started."
                     : "We received a request to reset your Zap Chat password. If you didn't make this request, please ignore this email."}
                         </p>
-                        <a href="${process.env.DOMAIN}${emailType === "VERIFY" ? "verifyemail" : "changepass"}?token=${hashedToken}"
+                        <a href="${process.env.DOMAIN}${emailType === "VERIFY" ? "verifyemail" : "changepassword"}?token=${hashedToken}"
                            style="display: inline-block; background-color: #4a5568; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">
                           ${emailType === "VERIFY" ? "Verify Email" : "Reset Password"}
                         </a>
@@ -63,7 +63,7 @@ export const sendEmail = async ({ email, emailType, userId }) => {
                           If the button above doesn't work, copy and paste this link into your browser:
                         </p>
                         <p style="font-size: 14px; word-break: break-all; color: #4a5568;">
-                          ${process.env.DOMAIN}${emailType === "VERIFY" ? "verifyemail" : "changepass"}?token=${hashedToken}
+                          ${process.env.DOMAIN}${emailType === "VERIFY" ? "verifyemail" : "changepassword"}?token=${hashedToken}
                         </p>
                       </div>
                       <p style="text-align: center; margin-top: 20px; font-size: 14px; color: #718096;">

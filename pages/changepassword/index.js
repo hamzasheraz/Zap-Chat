@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import Link from 'next/link'
 import Formheader from "@/components/formheader"
 import Notify from "@/components/notify"
 import Passwordform from "@/components/passwordform"
@@ -20,7 +18,7 @@ export default function Changepassword() {
     useEffect(() => {
         const urlToken = window.location.search.split("=")[1]
         setUser({ ...user, token: urlToken })
-    }, [user])
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -71,7 +69,7 @@ export default function Changepassword() {
                     ) : changed ? (
                         <Notify status="verified" message="Your password has been successfully changed!" />
                     ) : (
-                        <Passwordform handleSubmit={handleSubmit} user={user} error={error} isLoading={isLoading}
+                        <Passwordform handleSubmit={handleSubmit} user={user} error={error} isLoading={isLoading} setUser={setUser}
                         />
                     )}
                 </CardContent>

@@ -8,7 +8,7 @@ const Notify = ({ status, message }) => {
     case 'verified':
       alertVariant = "default";
       icon = <CheckCircle2 className="h-4 w-4" />;
-      alertMessage = "Your email has been successfully verified!";
+      alertMessage = message || "Your email has been successfully verified!";
       break;
     case 'error':
       alertVariant = "destructive";
