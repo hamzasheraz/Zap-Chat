@@ -5,7 +5,7 @@ import { Upload } from 'lucide-react'
 import Success from "../success"
 import Submitbutton from "../submitbutton"
 
-const Settingform = ({ handleSaveChanges, user, setUser, error, success, loading }) => {
+const Settingform = ({ handleSaveChanges, user, setUser, handleProfilePictureChange, error, success, loading }) => {
     return (
         <form onSubmit={handleSaveChanges} className="space-y-6">
             <div className="flex flex-col items-center space-y-4">
@@ -22,7 +22,7 @@ const Settingform = ({ handleSaveChanges, user, setUser, error, success, loading
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={(e) => setUser({ ...user, profilePicture: e.target.value })} />
+                        onChange={handleProfilePictureChange} />
                     <Label htmlFor="picture" className="cursor-pointer">
                         <div
                             className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">

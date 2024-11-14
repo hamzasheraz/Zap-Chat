@@ -6,6 +6,6 @@ export const getDatafromToken = (request) => {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         return decodedToken.id
     } catch (error) {
-        throw new Error("Invalid token");
+      console.error("Error getting data from token:", error);
     }
 }

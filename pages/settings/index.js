@@ -13,7 +13,7 @@ const Settings = () => {
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
-        profilePicture: '/placeholder-avatar.jpg',
+        profilePicture: '',
     })
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -27,20 +27,39 @@ const Settings = () => {
         setSuccess('')
         setLoading2(true);
 
-        // Validate inputs
-        if (!firstName || !lastName) {
-            setError('First name and last name are required.')
+        if (user.newPassword && user.newPassword !== user.confirmPassword) {
+            setError('New passwords do not match.')
+            setLoading2(false);
             return
         }
 
-        if (user.newPassword && user.newPassword !== user.confirmPassword) {
-            setError('New passwords do not match.')
-            return
-        }
-        setLoading2(false);
-        // Here you would typically handle the actual update logic
-        console.log('Saving changes:', { firstName, lastName, newPassword, profilePicture })
-        setSuccess('Changes saved successfully!')
+        const updatedFields = {};
+        Object.keys(user).forEach((key) => {
+            if (user[key]) {
+                updatedFields[key] = user[key];
+            }
+        });
+
+        fetch('/api/settings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ updatedFields }),
+        }).then(async (res) => {
+            const data = await res.json()
+            if (res.ok) {
+                setError('')
+                setSuccess(data.message);
+            }
+            else {
+                setError(data.error)
+                setSuccess('')
+            }
+        }).catch((error) => {
+            setError(error.message)
+        }).finally(() => { setLoading2(false) })
+
+        // console.log('Saving changes:', { firstName, lastName, newPassword, profilePicture })
+        // setSuccess('Changes saved successfully!')
     }
 
     const handleProfilePictureChange = (e) => {
@@ -48,7 +67,7 @@ const Settings = () => {
         if (file) {
             const reader = new FileReader()
             reader.onloadend = () => {
-                setProfilePicture(reader.result)
+                setUser({ ...user, profilePicture: reader.result })
             }
             reader.readAsDataURL(file)
         }
@@ -71,7 +90,7 @@ const Settings = () => {
     };
 
     return (
-        (<div
+        <div
             className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
             <Card className="max-w-2xl mx-auto">
                 <CardHeader>
@@ -79,12 +98,12 @@ const Settings = () => {
                     <CardDescription>Update your profile and account settings</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Settingform handleSaveChanges={handleSaveChanges} user={user} setUser={setUser} error={error} success={success} loading={loading2} />
+                    <Settingform handleSaveChanges={handleSaveChanges} user={user} setUser={setUser} handleProfilePictureChange={handleProfilePictureChange} error={error} success={success} loading={loading2} />
                     <Logout handleLogout={handleLogout} loading={loading} />
                 </CardContent>
                 <Formfooter page={'settings'} />
             </Card>
-        </div>)
+        </div>
     );
 }
 
