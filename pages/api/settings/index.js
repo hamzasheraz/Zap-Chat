@@ -9,7 +9,7 @@ export default async function Settings(req, res) {
     if (req.method === "POST") {
         try {
             const user_id = getDatafromToken(req);
-            const { firstName, lastName, newPassword, profilePicture } = req.body;
+            const { firstName, lastName, newPassword, profilePicture } = req.body.user;
 
             const user = await User.findById(user_id);
             if (!user) {

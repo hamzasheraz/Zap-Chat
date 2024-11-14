@@ -7,12 +7,14 @@ import { useRouter } from 'next/router'
 import Logout from '@/components/logout'
 
 const Settings = () => {
-    const [firstName, setFirstName] = useState('John')
-    const [lastName, setLastName] = useState('Doe')
-    const [currentPassword, setCurrentPassword] = useState('')
-    const [newPassword, setNewPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [profilePicture, setProfilePicture] = useState('/placeholder-avatar.jpg')
+    const [user, setUser] = useState({
+        firstName: 'John',
+        lastName: 'Doe',
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+        profilePicture: '/placeholder-avatar.jpg',
+    })
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
@@ -31,7 +33,7 @@ const Settings = () => {
             return
         }
 
-        if (newPassword && newPassword !== confirmPassword) {
+        if (user.newPassword && user.newPassword !== user.confirmPassword) {
             setError('New passwords do not match.')
             return
         }
@@ -57,7 +59,7 @@ const Settings = () => {
         try {
             const response = await fetch('/api/logout');
             if (response.ok) {
-                router.push('/login');  
+                router.push('/login');
             } else {
                 console.error("Logout failed.");
             }
@@ -77,7 +79,7 @@ const Settings = () => {
                     <CardDescription>Update your profile and account settings</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Settingform handleSaveChanges={handleSaveChanges} profilePicture={profilePicture} handleProfilePictureChange={handleProfilePictureChange} firstName={firstName} lastName={lastName} setFirstName={setFirstName} setLastName={setLastName} newPassword={newPassword} confirmPassword={confirmPassword} setCurrentPassword={setCurrentPassword} setConfirmPassword={setConfirmPassword} currentPassword={currentPassword} setNewPassword={setNewPassword} error={error} success={success} loading={loading2} />
+                    <Settingform handleSaveChanges={handleSaveChanges} user={user} setUser={setUser} error={error} success={success} loading={loading2} />
                     <Logout handleLogout={handleLogout} loading={loading} />
                 </CardContent>
                 <Formfooter page={'settings'} />

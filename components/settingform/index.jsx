@@ -5,15 +5,15 @@ import { Upload } from 'lucide-react'
 import Success from "../success"
 import Submitbutton from "../submitbutton"
 
-const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureChange, firstName, lastName, setFirstName, setLastName, newPassword, confirmPassword, setCurrentPassword, setConfirmPassword, currentPassword, setNewPassword, error, success,loading }) => {
+const Settingform = ({ handleSaveChanges, user, setUser, error, success, loading }) => {
     return (
         <form onSubmit={handleSaveChanges} className="space-y-6">
             <div className="flex flex-col items-center space-y-4">
                 <Avatar className="h-24 w-24">
-                    <AvatarImage src={profilePicture} alt="Profile picture" />
+                    <AvatarImage src={user.profilePicture} alt="Profile picture" />
                     <AvatarFallback>
-                        {firstName[0]}
-                        {lastName[0]}
+                        {user.firstName[0]}
+                        {user.lastName[0]}
                     </AvatarFallback>
                 </Avatar>
                 <div className="flex items-center">
@@ -22,7 +22,7 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                         type="file"
                         accept="image/*"
                         className="hidden"
-                        onChange={handleProfilePictureChange} />
+                        onChange={(e) => setUser({ ...user, profilePicture: e.target.value })} />
                     <Label htmlFor="picture" className="cursor-pointer">
                         <div
                             className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
@@ -37,8 +37,8 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                     <Label htmlFor="firstName">First Name</Label>
                     <Input
                         id="firstName"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        value={user.firstName}
+                        onChange={(e) => setUser({ ...user, firstName: e.target.value })}
                         autoComplete="first-name"
                         required />
                 </div>
@@ -46,8 +46,8 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                     <Label htmlFor="lastName">Last Name</Label>
                     <Input
                         id="lastName"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
+                        value={user.lastName}
+                        onChange={(e) => setUser({ ...user, lastName: e.target.value })}
                         autoComplete="last-name"
                         required />
                 </div>
@@ -57,9 +57,9 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                 <Input
                     id="currentPassword"
                     type="password"
-                    value={currentPassword}
+                    value={user.currentPassword}
                     autoComplete="current-password"
-                    onChange={(e) => setCurrentPassword(e.target.value)} />
+                    onChange={(e) => setUser({ ...user, currentPassword: e.target.value })} />
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
@@ -67,18 +67,18 @@ const Settingform = ({ handleSaveChanges, profilePicture, handleProfilePictureCh
                     <Input
                         id="newPassword"
                         type="password"
-                        value={newPassword}
+                        value={user.newPassword}
                         autoComplete="new-password"
-                        onChange={(e) => setNewPassword(e.target.value)} />
+                        onChange={(e) => setUser({ ...user, newPassword: e.target.value })} />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="confirmPassword">Confirm New Password</Label>
                     <Input
                         id="confirmPassword"
                         type="password"
-                        value={confirmPassword}
+                        value={user.confirmPassword}
                         autoComplete="new-password"
-                        onChange={(e) => setConfirmPassword(e.target.value)} />
+                        onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} />
                 </div>
             </div>
             <Success success={success} />
