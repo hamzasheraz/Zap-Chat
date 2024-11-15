@@ -1,6 +1,6 @@
 import { connect } from "@/backend/dbConfig/dbConfig";
 import User from "@/backend/models/usermodel";
-import { getDatafromToken } from "@/helpers/getDatafromToken";
+import getDatafromToken from "@/helpers/getDatafromToken";
 import bycrptjs from "bcryptjs";
 
 connect();

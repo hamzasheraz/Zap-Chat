@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button"
 import { UserPlus, Settings } from 'lucide-react'
-import { useRouter } from "next/router"
+import Link from 'next/link'
 
 const Options = ({ setIsNewContactModalOpen }) => {
-    const router = useRouter();
     return (
         <div className="p-4 flex justify-between">
             <Button variant="outline" onClick={() => setIsNewContactModalOpen(true)}>
@@ -11,9 +10,9 @@ const Options = ({ setIsNewContactModalOpen }) => {
                 New Contact
             </Button>
             <Button variant="outline">
-                <div className="h-5 w-5" onClick={() => router.push('/settings')}>
+                <Link className="h-5 w-5" href='/settings' passHref>
                     <Settings />
-                </div>
+                </Link>
             </Button>
         </div>
     )
