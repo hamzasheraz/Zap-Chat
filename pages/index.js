@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { TooltipProvider } from "@/components/ui/tooltip"
 import Sidebar from '@/components/sidebar'
 import Chatarea from '@/components/chatarea'
 import Newcontact from '@/components/sidebar/newcontact'
 import Tasklist from '@/components/chatarea/chatheader/tasklist'
+import { ThemeContext } from "@/theme"
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false)
+  const { theme } = useContext(ThemeContext);
   const [selectedContact, setSelectedContact] = useState(null)
   const [isNewContactModalOpen, setIsNewContactModalOpen] = useState(false)
   const [isRecording, setIsRecording] = useState(false)
@@ -18,11 +19,6 @@ export default function Home() {
     { id: 3, text: 'Send weekly report', completed: false },
   ])
   const [newTask, setNewTask] = useState('')
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-    document.documentElement.classList.toggle('dark')
-  }
 
   const contacts = [
     { id: 1, name: 'Alice', lastMessage: 'See you tomorrow!', time: '10:30 PM', avatar: '/placeholder-avatar-1.jpg' },
@@ -70,9 +66,9 @@ export default function Home() {
   return (
     (<TooltipProvider>
       <div
-        className={`h-screen flex flex-col sm:flex-row ${darkMode ? 'dark' : ''}`}>
+        className={`h-screen flex flex-col sm:flex-row ${theme === 'dark' ? 'dark' : ''}`}>
         {/* Sidebar */}
-        <Sidebar isSidebarOpen={isSidebarOpen} toggleDarkMode={toggleDarkMode} darkMode={darkMode} contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} setIsNewContactModalOpen={setIsNewContactModalOpen} />
+        <Sidebar isSidebarOpen={isSidebarOpen} contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} setIsNewContactModalOpen={setIsNewContactModalOpen} />
 
         {/* Main chat area */}
         <Chatarea selectedContact={selectedContact} toggleSidebar={toggleSidebar} toggleTaskList={toggleTaskList} toggleRecording={toggleRecording} isRecording={isRecording} />

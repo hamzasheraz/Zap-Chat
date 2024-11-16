@@ -2,19 +2,21 @@ import Searchbar from '@/components/sidebar/searchbar'
 import Options from './options'
 import Upperdisplay from './upperdisplay'
 import ContactList from './contactlist'
+import { ThemeContext } from '@/theme'
+import { useContext } from 'react'
 
-const Sidebar = ({ isSidebarOpen, toggleDarkMode, darkMode, contacts, setSelectedContact, setIsSidebarOpen, setIsNewContactModalOpen }) => {
+const Sidebar = ({ isSidebarOpen, contacts, setSelectedContact, setIsSidebarOpen, setIsNewContactModalOpen }) => {
     return (
         <div
             className={`w-full sm:w-80 bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col ${isSidebarOpen ? 'block' : 'hidden sm:block'}`}>
             {/* User info and dark mode toggle */}
-            <Upperdisplay darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+            <Upperdisplay />
 
             {/* Search bar */}
             <Searchbar />
 
             {/* Contacts list */}
-            <ContactList contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen}/>
+            <ContactList contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} />
 
             {/* New contact and settings buttons */}
             <Options setIsNewContactModalOpen={setIsNewContactModalOpen} />
