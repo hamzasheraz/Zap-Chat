@@ -2,6 +2,8 @@ import { connect } from "@/backend/dbConfig/dbConfig";
 import User from "@/backend/models/usermodel";
 import getDatafromToken from "@/helpers/getDatafromToken";
 import bycrptjs from "bcryptjs";
+import path from "path";
+import fs from "fs";
 
 connect();
 
@@ -30,7 +32,14 @@ export default async function Settings(req, res) {
                 user.password = hashedPassword;
             }
 
-            // if (profilePicture) user.profilePicture = profilePicture;
+            if (profilePicture) {
+                const base64Data = profilePicture.replace(/^data:image\/\w+;base64,/, "");
+                const buffer = Buffer.from(base64Data, "base64");
+                const imagePath = path.join(process.cwd(), "public/uploads", `${user_id}-profile.jpg`);
+                fs.mkdirSync(path.dirname(imagePath), { recursive: true });
+                fs.writeFileSync(imagePath, buffer);
+                user.profilePicture = `/uploads/${user_id}-profile.jpg`;
+            }
 
             await user.save();
             return res.status(200).json({ message: "Changes saved successfully!" });
