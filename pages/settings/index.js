@@ -27,6 +27,13 @@ const Settings = () => {
         setSuccess('')
         setLoading2(true);
 
+        if(currentPassword==='')
+        {
+            setError('Current password is required.')
+            setLoading2(false);
+            return
+        }
+
         if (user.newPassword && user.newPassword !== user.confirmPassword) {
             setError('New passwords do not match.')
             setLoading2(false);
@@ -49,6 +56,7 @@ const Settings = () => {
             if (res.ok) {
                 setError('')
                 setSuccess(data.message);
+                setUser({ ...user, currentPassword: '', newPassword: '', confirmPassword: '' })
             }
             else {
                 setError(data.error)
@@ -57,9 +65,6 @@ const Settings = () => {
         }).catch((error) => {
             setError(error.message)
         }).finally(() => { setLoading2(false) })
-
-        // console.log('Saving changes:', { firstName, lastName, newPassword, profilePicture })
-        // setSuccess('Changes saved successfully!')
     }
 
     const handleProfilePictureChange = (e) => {
