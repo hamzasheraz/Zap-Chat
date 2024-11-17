@@ -2,8 +2,6 @@ import Searchbar from '@/components/sidebar/searchbar'
 import Options from './options'
 import Upperdisplay from './upperdisplay'
 import ContactList from './contactlist'
-import { ThemeContext } from '@/theme'
-import { useContext } from 'react'
 
 const Sidebar = ({ isSidebarOpen, contacts, setSelectedContact, setIsSidebarOpen, setIsNewContactModalOpen }) => {
     return (

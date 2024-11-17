@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
+import Submitbutton from "@/components/submitbutton"
+import Success from "@/components/success"
 
-const Newcontact = ({ isNewContactModalOpen, setIsNewContactModalOpen, handleAddNewContact }) => {
+const Newcontact = ({ personToAdd, setPersonToAdd, isNewContactModalOpen, setIsNewContactModalOpen, handleAddNewContact, sucess, error, loading }) => {
     return (
         <Dialog open={isNewContactModalOpen} onOpenChange={setIsNewContactModalOpen}>
             <DialogContent className="sm:max-w-[425px]">
@@ -16,25 +17,18 @@ const Newcontact = ({ isNewContactModalOpen, setIsNewContactModalOpen, handleAdd
                 <form onSubmit={handleAddNewContact} className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="name">Name</Label>
-                        <Input id="name" placeholder="Enter contact name" required />
+                        <Input id="name" placeholder="Enter contact name" value={personToAdd.name} autoComplete='name' onChange={(e) => setPersonToAdd({ ...personToAdd, name: e.target.value })} required />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="Enter contact email" required />
+                        <Input id="email" type="email" placeholder="Enter contact email" value={personToAdd.email} autoComplete='email' onChange={(e) => setPersonToAdd({ ...personToAdd, email: e.target.value })} required />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="phone">Phone Number</Label>
-                        <Input id="phone" type="tel" placeholder="Enter contact phone number" required />
+                        <Input id="phone" type="tel" placeholder="Enter contact phone number" value={personToAdd.phoneNumber} autoComplete='phone-number' onChange={(e) => setPersonToAdd({ ...personToAdd, phoneNumber: e.target.value })} required />
                     </div>
-                    <div className="flex justify-end space-x-2">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => setIsNewContactModalOpen(false)}>
-                            Cancel
-                        </Button>
-                        <Button type="submit">Save Contact</Button>
-                    </div>
+                    <Success success={sucess} />
+                    <Submitbutton error={error} message="Save Contact" loading={loading} />
                 </form>
             </DialogContent>
         </Dialog>

@@ -8,22 +8,27 @@ export default async function Addcontact(req, res) {
         try {
             const user_id = await getDatafromToken(req);
             const user = await User.findById(user_id);
-            const { personToAdd } = req.body.personToAdd;
-
+            const { personToAdd } = req.body;
             if (personToAdd.email === user.email) {
-                return res.status(400).json({ message: "You can't add yourself as a contact" });
+                return res.status(400).json({ error: "You can't add yourself as a contact" });
             }
 
             const newContact = await User.findOne({ email: personToAdd.email }).select("_id email firstName lastName profilePicture");
 
             if (!newContact) {
-                return res.status(404).json({ message: "User not found" });
+                return res.status(404).json({ error: "User not found" });
             }
 
             const contactExists = user.contacts.find(contact => contact.email === newContact.email);
 
             if (contactExists) {
-                return res.status(400).json({ message: "Contact already exists" });
+                return res.status(400).json({ error: "Contact already exists" });
+            }
+
+            if (personToAdd.name) {
+                const nameParts = personToAdd.name.split(" ");
+                newContact.firstName = nameParts[0];
+                newContact.lastName = nameParts[1] || "";
             }
 
             await User.findByIdAndUpdate(user_id, {
@@ -33,7 +38,8 @@ export default async function Addcontact(req, res) {
             });
             return res.status(201).json({ message: "Contact added successfully" });
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            console.log(error);
+            res.status(500).json({ error: error.message });
         }
     }
 }

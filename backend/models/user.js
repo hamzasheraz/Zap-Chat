@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
     },
 
-    phoneNumber:{
+    phoneNumber: {
         type: String,
         required: [true, "Please Provide a Phone Number"],
         unique: true,
@@ -32,13 +32,17 @@ const userSchema = new mongoose.Schema({
         default: false,
     },
     profilePicture: {
-        type: String, 
-        default: "", 
+        type: String,
+        default: "",
     },
-    contacts:{
-        type: Array,
-        default: [],
-    },
+    contacts: [
+        {
+            email: { type: String, required: true },
+            firstName: { type: String },
+            lastName: { type: String },
+            profilePicture: { type: String },
+        },
+    ],
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
