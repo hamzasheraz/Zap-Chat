@@ -1,5 +1,5 @@
 import { connect } from "@/backend/dbConfig/dbConfig";
-import User from "@/backend/models/usermodel";
+import User from "@/backend/models/user";
 import { sendEmail } from "@/helpers/mailer";
 
 connect();

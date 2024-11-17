@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
         type: String, 
         default: "", 
     },
+    contacts:{
+        type: Array,
+        default: [],
+    },
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
