@@ -13,7 +13,7 @@ export default async function Addcontact(req, res) {
             if (!personToAdd.name || !personToAdd.email || !personToAdd.phoneNumber) {
                 return res.status(400).json({ error: "Please fill in all fields" });
             }
-            
+
             if (personToAdd.email === user.email) {
                 return res.status(400).json({ error: "You can't add yourself as a contact" });
             }
@@ -41,7 +41,7 @@ export default async function Addcontact(req, res) {
                     contacts: newContact
                 }
             });
-            return res.status(201).json({ message: "Contact added successfully" });
+            return res.status(201).json({ message: "Contact added successfully", newContact });
         } catch (error) {
             console.log(error);
             res.status(500).json({ error: error.message });

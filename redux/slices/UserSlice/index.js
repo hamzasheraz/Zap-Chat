@@ -15,7 +15,7 @@ export const fetchContacts = createAsyncThunk(
             if (!response.ok) {
                 return rejectWithValue(data.error || "Failed to fetch contacts");
             }
-            return data.contacts;  // Assuming the response has the contacts in `contacts`
+            return data.contacts;
         } catch (error) {
             return rejectWithValue(error.error || "Network error");
         }
@@ -38,7 +38,7 @@ export const addContact = createAsyncThunk(
                 return rejectWithValue(data.error || 'Failed to add contact');
             }
 
-            return data; // Return success message or data
+            return data;
         } catch (error) {
             return rejectWithValue(error.error);
         }
@@ -58,8 +58,7 @@ export const loginUser = createAsyncThunk(
             if (!response.ok) {
                 return rejectWithValue(data.error || "Login failed");
             }
-            console.log(data.data);
-            return data.data; // Assuming `data` contains user info and tokens
+            return data.data;
         } catch (error) {
             return rejectWithValue(error.error);
         }
@@ -179,6 +178,7 @@ const userSlice = createSlice({
             .addCase(addContact.fulfilled, (state, action) => {
                 state.loading = false;
                 state.success = action.payload.message;
+                state.contacts.push(action.payload.newContact);
             })
             .addCase(addContact.rejected, (state, action) => {
                 state.loading = false;
