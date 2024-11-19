@@ -8,14 +8,18 @@ import fs from "fs";
 connect();
 
 export default async function Settings(req, res) {
-    if (req.method === "POST") {
+    if (req.method === "PUT") {
         try {
             const user_id = await getDatafromToken(req);
-            const { firstName, lastName, newPassword, profilePicture, currentPassword } = req.body.updatedFields;
+            const { firstName, lastName, newPassword, profilePicture, currentPassword, confirmPassword } = req.body.updatedFields;
 
             const user = await User.findById(user_id);
             if (!user) {
                 return res.status(404).json({ error: "User not found" });
+            }
+
+            if (newPassword && newPassword !== confirmPassword) {
+                return res.status(400).json({ error: "Passwords do not match" });
             }
 
             const isMatch = await bycrptjs.compare(currentPassword, user.password);

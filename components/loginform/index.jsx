@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Submitbutton from "../submitbutton"
 
-const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error, loading }) => {
+const Loginform = ({ handleLogin, email, setEmail, password, setPassword }) => {
     return (
         <form onSubmit={handleLogin}>
             <div className="space-y-4">
@@ -27,7 +27,7 @@ const Loginform = ({ handleLogin, email, setEmail, password, setPassword, error,
                         onChange={(e) => setPassword(e.target.value)}
                         required />
                 </div>
-               <Submitbutton error={error} message="Login" loading={loading} />
+                <Submitbutton message="Login" />
             </div>
         </form>
     )

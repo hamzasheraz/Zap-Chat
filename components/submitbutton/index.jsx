@@ -1,8 +1,10 @@
 import Error from "../error"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from 'lucide-react'
+import { useSelector } from 'react-redux'
 
-const Submitbutton = ({ error, message, loading }) => {
+const Submitbutton = ({ message }) => {
+    const { loading, error } = useSelector((state) => state.user);
     return (
         <>
             <Error error={error} />

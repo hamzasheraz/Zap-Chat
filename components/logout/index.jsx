@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { LogOut } from 'lucide-react'
 import { Loader2 } from 'lucide-react'
 
-const Logout = ({ handleLogout, loading }) => {
+const Logout = ({ loading, handleLogout }) => {
     return (
         <>
             <Separator className="my-6" />

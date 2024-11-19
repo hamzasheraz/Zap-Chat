@@ -1,6 +1,8 @@
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useSelector } from "react-redux";
 
-const Success = ({ success }) => {
+const Success = () => {
+    const  success  = useSelector((state) => state.user.success);
     return (
         <>
             {success && (

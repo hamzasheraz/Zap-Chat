@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 import Submitbutton from "@/components/submitbutton"
 import Success from "@/components/success"
 
-const Newcontact = ({ personToAdd, setPersonToAdd, isNewContactModalOpen, setIsNewContactModalOpen, handleAddNewContact, sucess, error, loading }) => {
+const Newcontact = ({ personToAdd, setPersonToAdd, isNewContactModalOpen, setIsNewContactModalOpen, handleAddNewContact }) => {
     return (
         <Dialog open={isNewContactModalOpen} onOpenChange={setIsNewContactModalOpen}>
             <DialogContent className="sm:max-w-[425px]">
@@ -27,8 +27,8 @@ const Newcontact = ({ personToAdd, setPersonToAdd, isNewContactModalOpen, setIsN
                         <Label htmlFor="phone">Phone Number</Label>
                         <Input id="phone" type="tel" placeholder="Enter contact phone number" value={personToAdd.phoneNumber} autoComplete='phone-number' onChange={(e) => setPersonToAdd({ ...personToAdd, phoneNumber: e.target.value })} required />
                     </div>
-                    <Success success={sucess} />
-                    <Submitbutton error={error} message="Save Contact" loading={loading} />
+                    <Success />
+                    <Submitbutton message="Save Contact" />
                 </form>
             </DialogContent>
         </Dialog>

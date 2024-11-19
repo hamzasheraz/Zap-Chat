@@ -9,6 +9,11 @@ export default async function Addcontact(req, res) {
             const user_id = await getDatafromToken(req);
             const user = await User.findById(user_id);
             const { personToAdd } = req.body;
+
+            if (!personToAdd.name || !personToAdd.email || !personToAdd.phoneNumber) {
+                return res.status(400).json({ error: "Please fill in all fields" });
+            }
+            
             if (personToAdd.email === user.email) {
                 return res.status(400).json({ error: "You can't add yourself as a contact" });
             }

@@ -5,7 +5,7 @@ import { Upload } from 'lucide-react'
 import Success from "../success"
 import Submitbutton from "../submitbutton"
 
-const Settingform = ({ handleSaveChanges, user, setUser, handleProfilePictureChange, error, success, loading }) => {
+const Settingform = ({ handleSaveChanges, user, setUser, handleProfilePictureChange }) => {
     return (
         <form onSubmit={handleSaveChanges} className="space-y-6">
             <div className="flex flex-col items-center space-y-4">
@@ -40,7 +40,7 @@ const Settingform = ({ handleSaveChanges, user, setUser, handleProfilePictureCha
                         value={user.firstName}
                         onChange={(e) => setUser({ ...user, firstName: e.target.value })}
                         autoComplete="first-name"
-                        required />
+                    />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="lastName">Last Name</Label>
@@ -49,7 +49,7 @@ const Settingform = ({ handleSaveChanges, user, setUser, handleProfilePictureCha
                         value={user.lastName}
                         onChange={(e) => setUser({ ...user, lastName: e.target.value })}
                         autoComplete="last-name"
-                        required />
+                    />
                 </div>
             </div>
             <div className="space-y-2">
@@ -59,7 +59,8 @@ const Settingform = ({ handleSaveChanges, user, setUser, handleProfilePictureCha
                     type="password"
                     value={user.currentPassword}
                     autoComplete="current-password"
-                    onChange={(e) => setUser({ ...user, currentPassword: e.target.value })} />
+                    onChange={(e) => setUser({ ...user, currentPassword: e.target.value })}
+                    required />
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
@@ -81,8 +82,8 @@ const Settingform = ({ handleSaveChanges, user, setUser, handleProfilePictureCha
                         onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} />
                 </div>
             </div>
-            <Success success={success} />
-            <Submitbutton error={error} loading={loading} message="Save Changes" />
+            <Success />
+            <Submitbutton message="Save Changes" />
         </form>
     )
 }

@@ -5,66 +5,46 @@ import Settingheader from '@/components/settingheader'
 import Settingform from '@/components/settingform'
 import { useRouter } from 'next/router'
 import Logout from '@/components/logout'
+import { useDispatch } from 'react-redux'
+import { updateUserDetails, resetState, logoutUser } from '@/redux/slices/UserSlice'
 
 const Settings = () => {
-    const [user, setUser] = useState({
-        firstName: 'John',
-        lastName: 'Doe',
+    const [updateUser, setUser] = useState({
+        firstName: '',
+        lastName: '',
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
         profilePicture: '',
     })
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
-    const [loading, setLoading] = useState(false);
+
     const [loading2, setLoading2] = useState(false);
     const router = useRouter()
+    const dispatch = useDispatch()
 
     const handleSaveChanges = (e) => {
         e.preventDefault()
-        setError('')
-        setSuccess('')
-        setLoading2(true);
-
-        if(currentPassword==='')
-        {
-            setError('Current password is required.')
-            setLoading2(false);
-            return
-        }
-
-        if (user.newPassword && user.newPassword !== user.confirmPassword) {
-            setError('New passwords do not match.')
-            setLoading2(false);
-            return
-        }
 
         const updatedFields = {};
-        Object.keys(user).forEach((key) => {
-            if (user[key]) {
-                updatedFields[key] = user[key];
+        Object.keys(updateUser).forEach((key) => {
+            if (updateUser[key]) {
+                updatedFields[key] = updateUser[key];
             }
         });
 
-        fetch('/api/settings', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ updatedFields }),
-        }).then(async (res) => {
-            const data = await res.json()
-            if (res.ok) {
-                setError('')
-                setSuccess(data.message);
-                setUser({ ...user, currentPassword: '', newPassword: '', confirmPassword: '' })
+        dispatch(updateUserDetails(updatedFields)).unwrap().then(() => {
+            setUser({
+                firstName: '',
+                lastName: '',
+                currentPassword: '',
+                newPassword: '',
+                confirmPassword: '',
+                profilePicture: '',
             }
-            else {
-                setError(data.error)
-                setSuccess('')
-            }
-        }).catch((error) => {
-            setError(error.message)
-        }).finally(() => { setLoading2(false) })
+            );
+        }).catch((err) => {
+            console.error("Update failed:", err);
+        });
     }
 
     const handleProfilePictureChange = (e) => {
@@ -72,26 +52,22 @@ const Settings = () => {
         if (file) {
             const reader = new FileReader()
             reader.onloadend = () => {
-                setUser({ ...user, profilePicture: reader.result })
+                updateUser({ ...updateUser, profilePicture: reader.result })
             }
             reader.readAsDataURL(file)
         }
     }
 
-    const handleLogout = async () => {
-        setLoading(true);
-        try {
-            const response = await fetch('/api/logout');
-            if (response.ok) {
-                router.push('/login');
-            } else {
-                console.error("Logout failed.");
-            }
-        } catch (error) {
-            console.error("Error during logout:", error);
-        } finally {
-            setLoading(false);
+    const handleLogout = async (e) => {
+        e.preventDefault();
+        setLoading2(true);
+        const result = await dispatch(logoutUser());
+
+        if (logoutUser.fulfilled.match(result)) {
+            router.push("/login");
+            dispatch(resetState());
         }
+        setLoading2(false);
     };
 
     return (
@@ -103,8 +79,8 @@ const Settings = () => {
                     <CardDescription>Update your profile and account settings</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Settingform handleSaveChanges={handleSaveChanges} user={user} setUser={setUser} handleProfilePictureChange={handleProfilePictureChange} error={error} success={success} loading={loading2} />
-                    <Logout handleLogout={handleLogout} loading={loading} />
+                    <Settingform handleSaveChanges={handleSaveChanges} user={updateUser} setUser={setUser} handleProfilePictureChange={handleProfilePictureChange} />
+                    <Logout handleLogout={handleLogout} loading={loading2} />
                 </CardContent>
                 <Formfooter page={'settings'} />
             </Card>
