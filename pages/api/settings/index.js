@@ -28,8 +28,16 @@ export default async function Settings(req, res) {
                 return res.status(400).json({ error: "Invalid Current Password" });
             }
 
-            if (firstName) user.firstName = firstName;
-            if (lastName) user.lastName = lastName;
+            const updatedFields = {};
+
+            if (firstName) {
+                user.firstName = firstName;
+                updatedFields.firstName = firstName;
+            }
+            if (lastName) {
+                user.lastName = lastName;
+                updatedFields.lastName = lastName;
+            }
             if (newPassword) {
                 const salt = await bycrptjs.genSalt(10);
                 const hashedPassword = await bycrptjs.hash(newPassword, salt);
@@ -43,10 +51,11 @@ export default async function Settings(req, res) {
                 fs.mkdirSync(path.dirname(imagePath), { recursive: true });
                 fs.writeFileSync(imagePath, buffer);
                 user.profilePicture = `/uploads/${user_id}-profile.jpg`;
+                updatedFields.profilePicture = user.profilePicture;
             }
 
             await user.save();
-            return res.status(200).json({ message: "Changes saved successfully!" });
+            return res.status(200).json({ message: "Changes saved successfully!", updatedFields });
         } catch (error) {
             console.error("Error saving changes:", error);
             return res.status(500).json({ message: "An error occurred while saving changes." });

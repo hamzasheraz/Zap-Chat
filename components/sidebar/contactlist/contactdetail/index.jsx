@@ -10,14 +10,14 @@ const Contactdetails = ({contact,setSelectedContact,setIsSidebarOpen}) => {
         setIsSidebarOpen(false)
     }}>
     <Avatar>
-        <AvatarImage src={contact.avatar} alt={contact.name} />
-        <AvatarFallback>{contact.name[0]}</AvatarFallback>
+        <AvatarImage src={contact.profilePicture} alt={contact.name} />
+        <AvatarFallback>{contact.firstName[0]}</AvatarFallback>
     </Avatar>
     <div className="flex-grow">
-        <p className="font-medium text-gray-800 dark:text-gray-200">{contact.name}</p>
-        <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{contact.lastMessage}</p>
+        <p className="font-medium text-gray-800 dark:text-gray-200">{contact.firstName} {contact.lastName}</p>
+        {/* <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{contact.lastMessage}</p> */}
     </div>
-    <span className="text-xs text-gray-400 dark:text-gray-500">{contact.time}</span>
+    {/* <span className="text-xs text-gray-400 dark:text-gray-500">{contact.time}</span> */}
 </div>
   )
 }

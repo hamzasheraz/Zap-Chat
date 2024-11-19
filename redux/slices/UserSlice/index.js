@@ -1,5 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
+export const fetchContacts = createAsyncThunk(
+    "user/fetchContacts",
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await fetch("/api/getcontacts", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                return rejectWithValue(data.error || "Failed to fetch contacts");
+            }
+            return data.contacts;  // Assuming the response has the contacts in `contacts`
+        } catch (error) {
+            return rejectWithValue(error.error || "Network error");
+        }
+    }
+);
+
 export const addContact = createAsyncThunk(
     "user/addContact",
     async (personToAdd, { rejectWithValue }) => {
@@ -36,7 +58,8 @@ export const loginUser = createAsyncThunk(
             if (!response.ok) {
                 return rejectWithValue(data.error || "Login failed");
             }
-            return data; // Assuming `data` contains user info and tokens
+            console.log(data.data);
+            return data.data; // Assuming `data` contains user info and tokens
         } catch (error) {
             return rejectWithValue(error.error);
         }
@@ -87,6 +110,7 @@ const userSlice = createSlice({
     initialState: {
         data: null, // User details
         loading: false,
+        contacts: [],
         error: "",
         success: "",
         isLoggedIn: false, // Tracks login state
@@ -104,7 +128,7 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = "";
             state.success = "";
-          },
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -115,6 +139,10 @@ const userSlice = createSlice({
             })
             .addCase(updateUserDetails.fulfilled, (state, action) => {
                 state.loading = false;
+                console.log(action.payload)
+                if (action.payload.updatedFields.firstName) state.data.firstName = action.payload.updatedFields.firstName;
+                if (action.payload.updatedFields.lastName) state.data.lastName = action.payload.updatedFields.lastName;
+                if (action.payload.updatedFields.profilePicture) state.data.profilePicture = action.payload.updatedFields.profilePicture;
                 state.success = action.payload.message;
             })
             .addCase(updateUserDetails.rejected, (state, action) => {
@@ -147,17 +175,29 @@ const userSlice = createSlice({
             //addcontact
             .addCase(addContact.pending, (state) => {
                 state.loading = true;
-              })
-              .addCase(addContact.fulfilled, (state, action) => {
+            })
+            .addCase(addContact.fulfilled, (state, action) => {
                 state.loading = false;
                 state.success = action.payload.message;
-              })
-              .addCase(addContact.rejected, (state, action) => {
+            })
+            .addCase(addContact.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload || 'Failed to add contact';
-              });
+            })
+            .addCase(fetchContacts.pending, (state) => {
+                state.loading = true;
+                state.error = "";
+            })
+            .addCase(fetchContacts.fulfilled, (state, action) => {
+                state.loading = false;
+                state.contacts = action.payload;
+            })
+            .addCase(fetchContacts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload || "Failed to fetch contacts";
+            });
     },
 });
 
-export const { resetState,resetPageState } = userSlice.actions;
+export const { resetState, resetPageState } = userSlice.actions;
 export default userSlice.reducer;

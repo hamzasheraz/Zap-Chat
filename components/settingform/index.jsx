@@ -4,16 +4,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Upload } from 'lucide-react'
 import Success from "../success"
 import Submitbutton from "../submitbutton"
+import { useSelector } from "react-redux"
 
 const Settingform = ({ handleSaveChanges, user, setUser, handleProfilePictureChange }) => {
+    const user_details = useSelector((state) => state.user.data);
     return (
         <form onSubmit={handleSaveChanges} className="space-y-6">
             <div className="flex flex-col items-center space-y-4">
                 <Avatar className="h-24 w-24">
-                    <AvatarImage src={user.profilePicture} alt="Profile picture" />
+                    <AvatarImage src={user_details?.profilePicture} alt="Profile picture" />
                     <AvatarFallback>
-                        {user.firstName[0]}
-                        {user.lastName[0]}
+                        {user_details?.firstName[0]}
+                        {user_details?.lastName[0]}
                     </AvatarFallback>
                 </Avatar>
                 <div className="flex items-center">

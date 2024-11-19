@@ -3,7 +3,7 @@ import Options from './options'
 import Upperdisplay from './upperdisplay'
 import ContactList from './contactlist'
 
-const Sidebar = ({ isSidebarOpen, contacts, setSelectedContact, setIsSidebarOpen, setIsNewContactModalOpen }) => {
+const Sidebar = ({ isSidebarOpen, setSelectedContact, setIsSidebarOpen, setIsNewContactModalOpen }) => {
     return (
         <div
             className={`w-full sm:w-80 bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col ${isSidebarOpen ? 'block' : 'hidden sm:block'}`}>
@@ -14,7 +14,7 @@ const Sidebar = ({ isSidebarOpen, contacts, setSelectedContact, setIsSidebarOpen
             <Searchbar />
 
             {/* Contacts list */}
-            <ContactList contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} />
+            <ContactList setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} />
 
             {/* New contact and settings buttons */}
             <Options setIsNewContactModalOpen={setIsNewContactModalOpen} />

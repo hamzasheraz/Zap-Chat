@@ -13,7 +13,6 @@ export default async function getDatafromToken(req) {
       token,
       new TextEncoder().encode(process.env.TOKEN_SECRET)
     );
-
     return payload.id;
   } catch (error) {
     console.error("Error decoding token:", error.message);

@@ -1,12 +1,12 @@
-import { useState, useContext,useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { TooltipProvider } from "@/components/ui/tooltip"
 import Sidebar from '@/components/sidebar'
 import Chatarea from '@/components/chatarea'
 import Newcontact from '@/components/sidebar/newcontact'
 import Tasklist from '@/components/chatarea/chatheader/tasklist'
 import { ThemeContext } from "@/theme"
-import { useDispatch, useSelector } from 'react-redux'
-import { addContact } from '@/redux/slices/UserSlice'
+import { useDispatch } from 'react-redux'
+import { addContact, fetchContacts } from '@/redux/slices/UserSlice'
 
 export default function Home() {
   const { theme } = useContext(ThemeContext);
@@ -74,15 +74,15 @@ export default function Home() {
   }
 
   useEffect(() => {
-    
-},[]);
+    dispatch(fetchContacts())
+  }, [dispatch]);
 
   return (
     (<TooltipProvider>
       <div
         className={`h-screen flex flex-col sm:flex-row ${theme === 'dark' ? 'dark' : ''}`}>
         {/* Sidebar */}
-        <Sidebar isSidebarOpen={isSidebarOpen} contacts={contacts} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} setIsNewContactModalOpen={setIsNewContactModalOpen} />
+        <Sidebar isSidebarOpen={isSidebarOpen} setSelectedContact={setSelectedContact} setIsSidebarOpen={setIsSidebarOpen} setIsNewContactModalOpen={setIsNewContactModalOpen} />
 
         {/* Main chat area */}
         <Chatarea selectedContact={selectedContact} toggleSidebar={toggleSidebar} toggleTaskList={toggleTaskList} toggleRecording={toggleRecording} isRecording={isRecording} />
